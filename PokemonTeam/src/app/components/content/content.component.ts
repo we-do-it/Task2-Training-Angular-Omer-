@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { Pokemon } from 'src/app/interface/pokemon';
 import { PokemonService } from 'src/app/service/pokemon-service.service';
 import { AppState } from 'src/app/state/app.state';
@@ -15,6 +14,7 @@ import { selectAllPokemonTeam, selectPokemon } from 'src/app/state/pokemon/pokem
 export class ContentComponent implements OnInit {
 
   successMessage?:string;
+  errorMessage?:string;
   pokemons:Pokemon[] = [];
   filteredPokemons:Pokemon[] = [];
   team:Pokemon[] = [];
@@ -35,7 +35,7 @@ export class ContentComponent implements OnInit {
           this.pokemons = response.results;
           this.filteredPokemons = response.results;
         },
-        error: (error) => console.error(error),
+        error: (error) => this.errorMessage = error,
         complete: () => console.info('pokemons fetched')
       }
     )
@@ -52,4 +52,7 @@ export class ContentComponent implements OnInit {
     this.successMessage = "Pokemon Added";
   }
  
+  errorEvent(errorMessage:string){
+    this.errorMessage = errorMessage;
+  }
 }

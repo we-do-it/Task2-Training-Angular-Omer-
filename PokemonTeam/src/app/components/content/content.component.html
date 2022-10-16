@@ -1,11 +1,11 @@
-<app-alert [successMessage]="successMessage"></app-alert>
+<app-alert [successMessage]="successMessage" [errorMessage]="errorMessage"></app-alert>
 <div class="w-screen h-screen flex">
     <div class="w-1/2 h-screen">
         <p class="text-center mt-5">My Pokemon Team</p>
         <app-pokemon-table (removeEvent)="removePokemon($event)" [pokemons]="team" [allActions]="true"></app-pokemon-table>
         <p class="text-center mt-5">Pokedex</p>
         <app-search (inputOnchangeEvent)="filterPokemonsByName($event)"></app-search>
-        <app-pokemon-table [pokemons]="filteredPokemons" ></app-pokemon-table>
+        <app-pokemon-table [pokemons]="filteredPokemons" (errorEvent)="errorEvent($event)" ></app-pokemon-table>
     </div>
     <div class="w-1/2 h-screen">
         <app-pokemon-details (addPokemonEvent)="addPokemon($event)"></app-pokemon-details>

@@ -15,6 +15,7 @@ export class PokemonTableComponent implements OnInit {
   @Input() pokemons : Pokemon[] = [];
   @Input() allActions: boolean = false;
   @Output() removeEvent = new EventEmitter<string>();
+  @Output() errorEvent = new EventEmitter<string>();
   constructor(private store:Store<AppState>,private pokemonsService:PokemonService) { }
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class PokemonTableComponent implements OnInit {
           this.store.dispatch(selectPokemon({pokemon:pokemon}));
         },
         error: (error) => {
-          console.log(error)
+          this.errorEvent.emit(error);
         },
         complete: () => console.info('pokemon fetched')
       }
@@ -38,5 +39,6 @@ export class PokemonTableComponent implements OnInit {
   remove(name:string){
     this.removeEvent.emit(name);
   }
+  
   
 }
