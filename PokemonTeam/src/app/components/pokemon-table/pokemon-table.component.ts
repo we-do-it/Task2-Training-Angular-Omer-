@@ -12,33 +12,33 @@ import { selectPokemon, setErrorMessage } from 'src/app/state/pokemon/pokemon.ac
 })
 export class PokemonTableComponent implements OnInit {
 
-  @Input() pokemons : Pokemon[] = [];
+  @Input() pokemons: Pokemon[] = [];
   @Input() allActions: boolean = false;
   @Output() removeEvent = new EventEmitter<string>();
 
-  constructor(private store:Store<AppState>,private pokemonsService:PokemonService) { }
+  constructor(private store: Store<AppState>, private pokemonsService: PokemonService) { }
 
   ngOnInit(): void {
   }
-  selectPokemon(name:string){
+  selectPokemon(name: string) {
     this.pokemonsService.getPokemonByName(name).subscribe(
       {
         next: (response) => {
           let pokemon = response;
-          this.store.dispatch(selectPokemon({pokemon:pokemon}));
+          this.store.dispatch(selectPokemon({ pokemon: pokemon }));
         },
         error: (error) => {
-          this.store.dispatch(setErrorMessage({message:error}));
+          this.store.dispatch(setErrorMessage({ message: error }));
         },
         complete: () => console.info('pokemon fetched')
       }
     );
 
-   }
+  }
 
-  remove(name:string){
+  remove(name: string) {
     this.removeEvent.emit(name);
   }
-  
-  
+
+
 }

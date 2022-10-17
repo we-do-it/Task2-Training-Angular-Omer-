@@ -1,5 +1,5 @@
 import { PokemonTeamState } from "./pokemon/pokemon.reducer";
 
-export interface AppState{
+export interface AppState {
     pokemonTeam: PokemonTeamState
 }

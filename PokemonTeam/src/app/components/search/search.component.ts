@@ -8,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class SearchComponent implements OnInit {
 
 
-  inputValue:string = '';
+  inputValue: string = '';
 
   @Output() inputOnchangeEvent = new EventEmitter<string>();
 
@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  inputOnchange(){
+  inputOnchange() {
     this.inputOnchangeEvent.emit(this.inputValue);
   }
 

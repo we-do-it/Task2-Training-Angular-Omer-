@@ -14,18 +14,18 @@ import { selectPokemon } from 'src/app/state/pokemon/pokemon.selectors';
 })
 export class PokemonDetailsComponent implements OnInit {
 
-  
-  pokemon?:Pokemon | null;
+
+  pokemon?: Pokemon | undefined;
   @Output() addPokemonEvent = new EventEmitter<Pokemon>();
-  constructor(private store:Store<AppState>,private pokemonsService: PokemonService) { }
+  constructor(private store: Store<AppState>, private pokemonsService: PokemonService) { }
 
   ngOnInit(): void {
     this.store.pipe(select(selectPokemon)).subscribe(
       pokemon => this.pokemon = pokemon
     );
-   
+
   }
-  addPokemon(){
+  addPokemon() {
     this.addPokemonEvent.emit(this.pokemon!);
   }
 

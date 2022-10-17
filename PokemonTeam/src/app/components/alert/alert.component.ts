@@ -9,10 +9,10 @@ import { getErrorMessage, getSuccessMessage } from 'src/app/state/pokemon/pokemo
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
-successMessage?:string | null;
- errorMessage?:string | null;
+  successMessage?: string | undefined;
+  errorMessage?: string | undefined;
 
-  constructor(private store:Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.store.pipe(select(getSuccessMessage)).subscribe(
@@ -23,6 +23,6 @@ successMessage?:string | null;
     )
   }
 
-  
+
 
 }

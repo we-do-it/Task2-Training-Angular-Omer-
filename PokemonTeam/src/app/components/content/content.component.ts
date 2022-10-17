@@ -4,7 +4,7 @@ import { Pokemon } from 'src/app/interface/pokemon';
 import { PokemonService } from 'src/app/service/pokemon-service.service';
 import { AppState } from 'src/app/state/app.state';
 import { addPokemon, removePokemon, setErrorMessage } from 'src/app/state/pokemon/pokemon.action';
-import { selectAllPokemonTeam, selectPokemon } from 'src/app/state/pokemon/pokemon.selectors';
+import { getPokemonnTeam } from 'src/app/state/pokemon/pokemon.selectors';
 
 @Component({
   selector: 'app-content',
@@ -13,12 +13,12 @@ import { selectAllPokemonTeam, selectPokemon } from 'src/app/state/pokemon/pokem
 })
 export class ContentComponent implements OnInit {
 
-  pokemons:Pokemon[] = [];
-  filteredPokemons:Pokemon[] = [];
-  team:Pokemon[] = [];
-  
-  constructor(private pokemonsService:PokemonService,private store:Store<AppState>) { 
-    this.store.pipe(select(selectAllPokemonTeam)).subscribe(
+  pokemons: Pokemon[] = [];
+  filteredPokemons: Pokemon[] = [];
+  team: Pokemon[] = [];
+
+  constructor(private pokemonsService: PokemonService, private store: Store<AppState>) {
+    this.store.pipe(select(getPokemonnTeam)).subscribe(
       team => this.team = team
     );
   }
@@ -26,28 +26,28 @@ export class ContentComponent implements OnInit {
   ngOnInit(): void {
     this.getAllPokemons();
   }
-  getAllPokemons(){
+  getAllPokemons() {
     this.pokemonsService.getPokemons().subscribe(
       {
         next: (response) => {
           this.pokemons = response.results;
           this.filteredPokemons = response.results;
         },
-        error: (error) => this.store.dispatch(setErrorMessage({message:error})),
+        error: (error) => this.store.dispatch(setErrorMessage({ message: error })),
         complete: () => console.info('pokemons fetched')
       }
     )
   }
-  filterPokemonsByName(filterName:string) {
+  filterPokemonsByName(filterName: string) {
     this.filteredPokemons = this.pokemons.filter(function (str) { return str.name.includes(filterName); });
   }
-  removePokemon(name:string){
-    this.store.dispatch(removePokemon({pokemonName: name}));  
+  removePokemon(name: string) {
+    this.store.dispatch(removePokemon({ pokemonName: name }));
   }
-  addPokemon(pokemon:Pokemon){
-   if(this.team.length < 5){
-    this.store.dispatch(addPokemon({pokemon:pokemon}))
-   }else this.store.dispatch(setErrorMessage({message: 'Your team cannot have more than 6 pokemons'}))
+  addPokemon(pokemon: Pokemon) {
+    if (this.team.length < 5) {
+      this.store.dispatch(addPokemon({ pokemon: pokemon }))
+    } else this.store.dispatch(setErrorMessage({ message: 'Your team cannot have more than 6 pokemons' }))
   }
- 
+
 }

@@ -5,16 +5,16 @@ import { addPokemon, removePokemon, selectPokemon, setErrorMessage, setSuccessMe
 
 export interface PokemonTeamState{
     pokemons: Pokemon[];
-    selectedPokmon:Pokemon | null;
-    errorMessage: string | null;
-    successMessage: string | null;
+    selectedPokmon:Pokemon | undefined;
+    errorMessage: string | undefined;
+    successMessage: string | undefined;
 }
 
 export const initialState: PokemonTeamState ={
     pokemons:[],
-    selectedPokmon: null,
-    errorMessage:null,
-    successMessage: null
+    selectedPokmon: undefined,
+    errorMessage:undefined,
+    successMessage: undefined
  
 }
 export const pokemonTeamReducer = createReducer(
@@ -25,14 +25,14 @@ export const pokemonTeamReducer = createReducer(
         ...state,
         pokemons: [...state.pokemons, pokemon],
         successMessage: "Pokemon added",
-        errorMessage: null
+        errorMessage: undefined
     })),
     // Remove pokemon from the team
     on(removePokemon,(state,{pokemonName})=>({
         ...state,
         pokemons: state.pokemons.filter((pokemon) => pokemonName !== pokemon.name),
         successMessage: "Pokemon revomed",
-        errorMessage : null
+        errorMessage : undefined
     })),
     // Update selected pokemon
     on(selectPokemon,(state,{pokemon})=>({
@@ -43,13 +43,13 @@ export const pokemonTeamReducer = createReducer(
     on(setErrorMessage,(state,{message})=>({
         ...state,
         errorMessage: message,
-        successMessage: null
+        successMessage: undefined
     })),
      // Set successMessage
      on(setSuccessMessage,(state,{message})=>({
         ...state,
         successMessage: message,
-        errorMessage:null
+        ƒerrorMessage:undefined
         
     }))
 

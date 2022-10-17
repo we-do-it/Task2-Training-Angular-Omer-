@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Stat } from 'src/app/interface/pokemon';
-import{Chart,registerables} from 'chart.js'
+import { Chart, registerables } from 'chart.js'
 @Component({
   selector: 'app-radar-chart',
   templateUrl: './radar-chart.component.html',
   styleUrls: ['./radar-chart.component.scss']
 })
 export class RadarChartComponent implements OnInit {
-  
-  @Input() stats?:Stat[];
+
+  @Input() stats?: Stat[];
   public chart: any;
-  
+
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class RadarChartComponent implements OnInit {
     this.drawChart();
   }
 
-  drawChart(){
+  drawChart() {
     const labels = this.getLabels();
     const stats = this.getStats();
     this.chart = new Chart("MyChart", {
@@ -31,7 +31,7 @@ export class RadarChartComponent implements OnInit {
         datasets: [{
           data: stats,
           fill: true,
-          label :'Stats',
+          label: 'Stats',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgb(255, 99, 132)',
           pointBackgroundColor: 'rgb(255, 99, 132)',
@@ -41,16 +41,17 @@ export class RadarChartComponent implements OnInit {
         }]
       },
       options: {
-        aspectRatio:2.5
+        aspectRatio: 2.5
       }
-      
-    });}
 
-  getLabels():string[]{
-    return this.stats!.map((stat)=> {return stat.stat.name});
+    });
   }
-  getStats() : number[]{
-    return this.stats!.map((stat)=> {return stat.base_stat});
+
+  getLabels(): string[] {
+    return this.stats!.map((stat) => { return stat.stat.name });
+  }
+  getStats(): number[] {
+    return this.stats!.map((stat) => { return stat.base_stat });
   }
 
 }
