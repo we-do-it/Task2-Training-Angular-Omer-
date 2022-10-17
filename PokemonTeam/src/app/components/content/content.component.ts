@@ -45,7 +45,9 @@ export class ContentComponent implements OnInit {
     this.store.dispatch(removePokemon({pokemonName: name}));  
   }
   addPokemon(pokemon:Pokemon){
+   if(this.team.length < 5){
     this.store.dispatch(addPokemon({pokemon:pokemon}))
+   }else this.store.dispatch(setErrorMessage({message: 'Your team cannot have more than 6 pokemons'}))
   }
  
 }

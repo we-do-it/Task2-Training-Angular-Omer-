@@ -24,13 +24,15 @@ export const pokemonTeamReducer = createReducer(
     on(addPokemon,(state,{pokemon})=>({
         ...state,
         pokemons: [...state.pokemons, pokemon],
-        successMessage: "Pokemon added"
+        successMessage: "Pokemon added",
+        errorMessage: null
     })),
     // Remove pokemon from the team
     on(removePokemon,(state,{pokemonName})=>({
         ...state,
         pokemons: state.pokemons.filter((pokemon) => pokemonName !== pokemon.name),
-        successMessage: "Pokemon revomed"
+        successMessage: "Pokemon revomed",
+        errorMessage : null
     })),
     // Update selected pokemon
     on(selectPokemon,(state,{pokemon})=>({
@@ -40,12 +42,15 @@ export const pokemonTeamReducer = createReducer(
     // Set errorMessage
     on(setErrorMessage,(state,{message})=>({
         ...state,
-        errorMessage: message
+        errorMessage: message,
+        successMessage: null
     })),
      // Set successMessage
      on(setSuccessMessage,(state,{message})=>({
         ...state,
-        successMessage: message
+        successMessage: message,
+        errorMessage:null
+        
     }))
 
 )
