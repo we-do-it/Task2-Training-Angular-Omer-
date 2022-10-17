@@ -18,4 +18,11 @@ export const selectPokemon = createAction(
     props<{ pokemon: Pokemon }>()
 )
 
-
+export const setErrorMessage = createAction(
+    "Set error message for alerts",
+    props<{ message: string }>()
+)
+export const setSuccessMessage = createAction(
+    "Set success message for alerts",
+    props<{ message: string }>()
+)

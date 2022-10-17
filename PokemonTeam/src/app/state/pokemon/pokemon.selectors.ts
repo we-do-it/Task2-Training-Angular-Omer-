@@ -12,3 +12,13 @@ export const selectPokemon = createSelector(
     selectPokemonTeam,
     (state:PokemonTeamState) => state.selectedPokmon
 )
+
+export const getSuccessMessage = createSelector(
+    selectPokemonTeam,
+    (state:PokemonTeamState) => state.successMessage
+)
+
+export const getErrorMessage = createSelector(
+    selectPokemonTeam,
+    (state:PokemonTeamState) => state.errorMessage
+)

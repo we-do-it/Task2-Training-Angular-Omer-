@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Pokemon } from 'src/app/interface/pokemon';
 import { PokemonService } from 'src/app/service/pokemon-service.service';
 import { AppState } from 'src/app/state/app.state';
-import { addPokemon, removePokemon } from 'src/app/state/pokemon/pokemon.action';
+import { addPokemon, removePokemon, setErrorMessage } from 'src/app/state/pokemon/pokemon.action';
 import { selectAllPokemonTeam, selectPokemon } from 'src/app/state/pokemon/pokemon.selectors';
 
 @Component({
@@ -13,8 +13,6 @@ import { selectAllPokemonTeam, selectPokemon } from 'src/app/state/pokemon/pokem
 })
 export class ContentComponent implements OnInit {
 
-  successMessage?:string;
-  errorMessage?:string;
   pokemons:Pokemon[] = [];
   filteredPokemons:Pokemon[] = [];
   team:Pokemon[] = [];
@@ -35,7 +33,7 @@ export class ContentComponent implements OnInit {
           this.pokemons = response.results;
           this.filteredPokemons = response.results;
         },
-        error: (error) => this.errorMessage = error,
+        error: (error) => this.store.dispatch(setErrorMessage({message:error})),
         complete: () => console.info('pokemons fetched')
       }
     )
@@ -44,15 +42,10 @@ export class ContentComponent implements OnInit {
     this.filteredPokemons = this.pokemons.filter(function (str) { return str.name.includes(filterName); });
   }
   removePokemon(name:string){
-    this.store.dispatch(removePokemon({pokemonName: name}));
-    this.successMessage = 'Pokemon removed';    
+    this.store.dispatch(removePokemon({pokemonName: name}));  
   }
   addPokemon(pokemon:Pokemon){
     this.store.dispatch(addPokemon({pokemon:pokemon}))
-    this.successMessage = "Pokemon Added";
   }
  
-  errorEvent(errorMessage:string){
-    this.errorMessage = errorMessage;
-  }
 }
