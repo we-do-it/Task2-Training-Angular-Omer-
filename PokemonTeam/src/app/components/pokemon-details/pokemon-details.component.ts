@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { Pokemon } from 'src/app/interface/pokemon';
 import { PokemonService } from 'src/app/service/pokemon-service.service';
 import { AppState } from 'src/app/state/app.state';
-import { addPokemon } from 'src/app/state/pokemon/pokemon.action';
 import { selectPokemon } from 'src/app/state/pokemon/pokemon.selectors';
 
 @Component({

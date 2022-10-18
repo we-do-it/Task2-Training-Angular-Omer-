@@ -31,7 +31,7 @@ export const pokemonTeamReducer = createReducer(
     on(removePokemon,(state,{pokemonName})=>({
         ...state,
         pokemons: state.pokemons.filter((pokemon) => pokemonName !== pokemon.name),
-        successMessage: "Pokemon revomed",
+        successMessage: "Pokemon removed",
         errorMessage : undefined
     })),
     // Update selected pokemon

@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Stat } from 'src/app/interface/pokemon';
 import { Chart, registerables } from 'chart.js'
+import { select, Store } from '@ngrx/store';
+import { selectPokemon } from 'src/app/state/pokemon/pokemon.selectors';
+import { AppState } from 'src/app/state/app.state';
 @Component({
   selector: 'app-radar-chart',
   templateUrl: './radar-chart.component.html',
@@ -9,20 +12,27 @@ import { Chart, registerables } from 'chart.js'
 export class RadarChartComponent implements OnInit {
 
   @Input() stats?: Stat[];
-  public chart: any;
+  public chart?: Chart;
+  chartContainer: HTMLElement | null = document.getElementById('chartContainer');
 
-
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     Chart.register(...registerables);
-    this.getLabels();
-    this.drawChart();
+    this.store.pipe(select(selectPokemon)).subscribe(
+      pokemon => { this.stats = pokemon?.stats; this.drawChart(); }
+    );
+
   }
 
   drawChart() {
     const labels = this.getLabels();
     const stats = this.getStats();
+
+    if(this.chart){
+      this.chart.destroy();
+    }
+    
     this.chart = new Chart("MyChart", {
       type: 'radar', //this denotes tha type of chart
 
@@ -53,5 +63,7 @@ export class RadarChartComponent implements OnInit {
   getStats(): number[] {
     return this.stats!.map((stat) => { return stat.base_stat });
   }
+
+
 
 }
